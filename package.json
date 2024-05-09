@@ -4,13 +4,16 @@
   "description": "E-commerce data source for bargainbee",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "dev": "ts-node index.ts"
+    "dev": "nodemon",
+    "build": "tsc",
+    "run": "node -r tsconfig-paths/register build/index.js",
+    "build:run": "tsc && node -r ts-node/register -r tsconfig-paths/register build/index.js"
   },
   "author": "Dahn Registrado",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
+    "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
