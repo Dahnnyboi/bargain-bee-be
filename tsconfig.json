@@ -5,6 +5,7 @@
   },
   "compilerOptions": {
     "target": "es2016",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "strict": true,
     "rootDir": "./",
@@ -12,7 +13,11 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "lib": ["es6", "dom"],
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": "./src",
+    "paths": {
+      "@constants/*": ["constants/*"]
+    }
   },
   "include": ["src/**/*", "index.ts"],
   "exclude": ["node_modules", "dist"]
