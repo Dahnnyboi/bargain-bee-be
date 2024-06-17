@@ -4,7 +4,7 @@
     "require": ["tsconfig-paths/register"]
   },
   "compilerOptions": {
-    "target": "es2016",
+    "target": "ES5",
     "module": "CommonJS",
     "esModuleInterop": true,
     "strict": true,
