@@ -7,7 +7,8 @@
     "dev": "nodemon",
     "build": "tsc",
     "run": "node -r tsconfig-paths/register build/index.js",
-    "build:run": "tsc && node -r ts-node/register -r tsconfig-paths/register build/index.js"
+    "build:run": "tsc && node -r ts-node/register -r tsconfig-paths/register build/index.js",
+    "preinstall": "npx only-allow pnpm" 
   },
   "author": "Dahn Registrado",
   "license": "ISC",
