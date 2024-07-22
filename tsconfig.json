@@ -13,9 +13,10 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "lib": ["es6", "dom"],
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./src/typings"],
     "baseUrl": "./src"
   },
   "include": ["src/**/*", "index.ts", ".eslintrc.cjs"],
   "exclude": ["node_modules/**", "build/**"]
 }
+

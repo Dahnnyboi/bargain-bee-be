@@ -1,5 +1,3 @@
-import { ENVIRONMENT_TEST } from "constants/environments";
+import sequelizeStart from "config/sequelize";
 
-const string: string = "Hello world";
-
-console.log(string, ENVIRONMENT_TEST);
+sequelizeStart();
