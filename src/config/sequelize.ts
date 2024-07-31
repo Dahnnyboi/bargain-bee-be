@@ -14,7 +14,7 @@ const SSLOptions: boolean | SSLOPTIONTYPE = IS_DEVELOPMENT
       rejectUnauthorized: false,
     };
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
   DATABASE_NAME as string,
   DATABASE_USER as string,
   DATABASE_PASSWORD as string,
@@ -36,6 +36,7 @@ const sequelize = new Sequelize(
 
 async function sequelizeStart() {
   try {
+    await sequelize.sync();
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {

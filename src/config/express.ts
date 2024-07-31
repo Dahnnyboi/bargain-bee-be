@@ -1,7 +1,12 @@
 import express, { Application, Response, Request } from "express";
 import { PORT } from "constants/environments";
 import { API_PREFIX } from "constants/variables";
-import { notFoundHandler, errorHandler } from "middlewares/errors";
+import {
+  validationSequelizeError,
+  notFoundHandler,
+  errorHandler,
+} from "middlewares/errors";
+import routes from "routes";
 
 const expressStart = (app: Application) => {
   app.use(express.json());
@@ -12,6 +17,9 @@ const expressStart = (app: Application) => {
     });
   });
 
+  app.use(API_PREFIX, routes());
+
+  app.use(validationSequelizeError);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
