@@ -1,11 +1,16 @@
 import { Response, Request, NextFunction } from "express";
 import { ContextRunner } from "express-validator";
 import { ValidationError, ValidationErrorItem } from "sequelize";
+import {
+  SEQUELIZE_ERROR_MESSAGE,
+  EXPRESS_VALIDATOR_ERROR_MESSAGE,
+} from "constants/variables";
+import { errorFormatterResponse } from "utils/formatter";
 
 export const validationErrorHandler =
   (validations: ContextRunner[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const errorArray: ERRORS_RESPONSE = [];
+    const errorsArray: ERRORS_RESPONSE = [];
 
     if (validations && validations.length !== 0) {
       for (const validation of validations) {
@@ -18,17 +23,16 @@ export const validationErrorHandler =
             const path = object.path;
             const message = object.msg;
 
-            errorArray.push({ [path]: message });
+            errorsArray.push({ [path]: message });
           }
         }
       }
 
-      if (errorArray && errorArray.length !== 0) {
+      if (errorsArray && errorsArray.length !== 0) {
         res.status(400);
-        res.json({
-          message: "Field Validation Error",
-          errors: errorArray,
-        });
+        res.json(
+          errorFormatterResponse(EXPRESS_VALIDATOR_ERROR_MESSAGE, errorsArray)
+        );
       } else {
         next();
       }
@@ -54,7 +58,7 @@ export const validationSequelizeError = (
 
     if (errorsArray.length !== 0) {
       res.status(400);
-      res.json({ message: "Sequelize Validation Error", errors: errorsArray });
+      res.json(errorFormatterResponse(SEQUELIZE_ERROR_MESSAGE, errorsArray));
     } else {
       next();
     }
