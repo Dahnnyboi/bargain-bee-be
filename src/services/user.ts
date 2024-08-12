@@ -1,6 +1,7 @@
 import UserModel from "models/user";
 import bcrypt from "bcrypt";
 import { SALT_ROUNDS } from "constants/variables";
+import { IUserModel } from "models/user";
 
 export const createUser = async (
   firstName: string,
@@ -26,4 +27,11 @@ export const createUser = async (
     salt,
     password: hash,
   });
+};
+
+export const checkUserPassword = async (user: IUserModel, password: string) => {
+  const { password: userPassword } = user;
+
+  const match = await bcrypt.compare(password, userPassword);
+  return match;
 };

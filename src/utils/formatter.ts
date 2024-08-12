@@ -9,3 +9,13 @@ export const errorFormatterResponse = (
     ...additionals,
   };
 };
+
+export const successActionFormatterResponse = (
+  message?: string,
+  data?: Record<
+    string,
+    string | number | string[] | number[] | Record<string, string>
+  >
+) => {
+  return { message, data };
+};

@@ -1,7 +1,30 @@
 import { sequelize } from "config/sequelize";
-import { DataTypes, UUIDV4 } from "sequelize";
+import {
+  DataTypes,
+  UUIDV4,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
+export interface IUserModel
+  extends Model<
+    InferAttributes<IUserModel>,
+    InferCreationAttributes<IUserModel>
+  > {
+  user_id: CreationOptional<string>;
+  first_name: string;
+  last_name: string;
+  street: string;
+  city: string;
+  country: string;
+  image: CreationOptional<string>;
+  email: string;
+  salt: string;
+  password: string;
+}
 
-const UserModel = sequelize.define(
+const UserModel = sequelize.define<IUserModel>(
   "user",
   {
     user_id: {
