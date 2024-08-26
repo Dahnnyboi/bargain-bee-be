@@ -24,60 +24,56 @@ export interface IUserModel
   password: string;
 }
 
-const UserModel = sequelize.define<IUserModel>(
-  "user",
-  {
-    user_id: {
-      defaultValue: UUIDV4,
-      type: DataTypes.UUID,
-      allowNull: false,
-      primaryKey: true,
+const UserModel = sequelize.define<IUserModel>("user", {
+  user_id: {
+    defaultValue: UUIDV4,
+    type: DataTypes.UUID,
+    allowNull: false,
+    primaryKey: true,
+  },
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  street: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: {
+      name: "unique_error",
+      msg: "Email already exists, please try using another email address",
     },
-    first_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    last_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    street: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: {
-        name: "unique_error",
-        msg: "Email already exists, please try using another email address",
-      },
-      validate: {
-        isEmail: true,
-      },
-    },
-    salt: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    validate: {
+      isEmail: true,
     },
   },
-  { timestamps: true, createdAt: "created_at", updatedAt: "updated_at" }
-);
+  salt: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
 
 export default UserModel;

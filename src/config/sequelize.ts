@@ -31,6 +31,11 @@ export const sequelize = new Sequelize(
       acquire: 30000,
       idle: 10000,
     },
+    define: {
+      timestamps: true,
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    },
   }
 );
 
