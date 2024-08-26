@@ -33,6 +33,7 @@
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
+    "clean-deep": "^3.4.0",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "i18n-iso-countries": "^7.11.3",
