@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { errorFormatterResponse } from "utils/formatter";
-import { verify } from "services/jwt";
+import { decodePayload, verify } from "services/jwt";
 import UserModel from "models/user";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export const jwtMiddleware = async (
   req: Request,
@@ -20,10 +21,10 @@ export const jwtMiddleware = async (
   const token = authHeader.split(" ")[1];
 
   try {
-    const payload = verify(token);
+    const payload = decodePayload(token);
 
     if (!payload) {
-      res.status(400);
+      res.status(403);
       res.json(errorFormatterResponse("Invalid JWT Token"));
       return;
     }
@@ -35,6 +36,15 @@ export const jwtMiddleware = async (
     if (!user) {
       res.status(400);
       res.json(errorFormatterResponse("Cannot find user"));
+      return;
+    }
+
+    const { salt } = user;
+    const decoded = verify(token, salt);
+
+    if (!decoded) {
+      res.status(403);
+      res.json(errorFormatterResponse("Invalid JWT Token"));
       return;
     }
 

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import User from "models/user";
-import { checkUserPassword } from "services/user";
+import { checkUserPassword, generateUserSalt } from "services/user";
 import {
   errorFormatterResponse,
   successActionFormatterResponse,
@@ -40,9 +40,10 @@ export const login = async (
       city,
       country,
       image,
+      salt,
     } = user;
 
-    const token = sign({ user_id, email: userEmail });
+    const token = sign({ user_id, email: userEmail }, salt);
     const response = {
       token,
       first_name,
@@ -52,12 +53,31 @@ export const login = async (
       city,
       country,
       image,
+      salt,
     };
 
     res.status(200);
     res.json(
       successActionFormatterResponse("Successful login", { ...response })
     );
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { user } = req;
+    const { user_id } = user;
+
+    await generateUserSalt(user_id);
+
+    res.status(200);
+    res.json(successActionFormatterResponse("Successful logout"));
   } catch (err) {
     next(err);
   }

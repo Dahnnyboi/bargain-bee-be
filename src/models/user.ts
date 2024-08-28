@@ -20,7 +20,7 @@ export interface IUserModel
   country: string;
   image: CreationOptional<string>;
   email: string;
-  salt: string;
+  salt: CreationOptional<string>;
   password: string;
 }
 
@@ -68,7 +68,7 @@ const UserModel = sequelize.define<IUserModel>("user", {
   },
   salt: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   password: {
     type: DataTypes.STRING,

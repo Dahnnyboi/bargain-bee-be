@@ -13,8 +13,7 @@ export const createUser = async (
   password: string,
   image: string | undefined
 ) => {
-  const salt = await bcrypt.genSalt(SALT_ROUNDS);
-  const hash = await bcrypt.hash(password, salt);
+  const hash = await bcrypt.hash(password, SALT_ROUNDS);
 
   return await UserModel.create({
     first_name: firstName,
@@ -24,7 +23,6 @@ export const createUser = async (
     country,
     image,
     email,
-    salt,
     password: hash,
   });
 };
@@ -34,4 +32,10 @@ export const checkUserPassword = async (user: IUserModel, password: string) => {
 
   const match = await bcrypt.compare(password, userPassword);
   return match;
+};
+
+export const generateUserSalt = async (userId: string) => {
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+
+  await UserModel.update({ salt }, { where: { user_id: userId } });
 };
