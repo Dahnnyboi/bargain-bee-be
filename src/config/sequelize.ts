@@ -6,6 +6,7 @@ import {
   DATABASE_USER,
 } from "constants/environments";
 import { IS_DEVELOPMENT } from "constants/variables";
+import Logger from "utils/logger";
 
 const SSLOptions: boolean | SSLOPTIONTYPE = IS_DEVELOPMENT
   ? false
@@ -36,6 +37,7 @@ export const sequelize = new Sequelize(
       createdAt: "created_at",
       updatedAt: "updated_at",
     },
+    logging: (str) => Logger.info(str),
   }
 );
 
@@ -43,9 +45,9 @@ async function sequelizeStart() {
   try {
     await sequelize.sync();
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    Logger.info("Connection has been established successfully");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    Logger.error("Unable to connect to the database:", error);
   }
 }
 

@@ -7,6 +7,7 @@ import {
   errorHandler,
 } from "middlewares/errors";
 import routes from "routes";
+import logger from "utils/logger";
 
 const expressStart = (app: Application) => {
   app.use(express.json());
@@ -24,7 +25,7 @@ const expressStart = (app: Application) => {
   app.use(errorHandler);
 
   app.listen(PORT, () => {
-    console.log(`Listening to port ${PORT}`);
+    logger.info(`Listening on ${PORT}`);
   });
 };
 
