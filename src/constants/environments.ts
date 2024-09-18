@@ -10,3 +10,7 @@ export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 export const PORT = parseInt(process.env.PORT || "");
 export const JWT_SECRET = process.env.JWT_SECRET;
 export const JWT_EXPIRES = process.env.JWT_EXPIRES;
+
+export const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
+export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+export const CLOUDINARY_API_SECRET_KEY = process.env.CLOUDINARY_API_SECRET_KEY;

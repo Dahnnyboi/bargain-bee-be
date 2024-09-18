@@ -84,7 +84,7 @@ export const putUserProfile = async (
 ) => {
   const { user } = req;
   const { user_id } = user;
-  const { first_name, last_name, email, street, city, country } =
+  const { first_name, last_name, email, street, city, country, image } =
     req.body as Pick<
       USER,
       | "first_name"
@@ -94,6 +94,7 @@ export const putUserProfile = async (
       | "city"
       | "country"
       | "password"
+      | "image"
     >;
 
   const query = cleanDeep({
@@ -103,6 +104,7 @@ export const putUserProfile = async (
     street,
     city,
     country,
+    image,
   });
 
   try {
